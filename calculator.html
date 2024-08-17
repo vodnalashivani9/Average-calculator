@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Average Calculator</h1>
+        <input type="text" id="numbers" placeholder="Enter numbers separated by commas">
+        <button onclick="calculateAverage()">Calculate Average</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        function calculateAverage() {
+            const numbersInput = document.getElementById('numbers').value;
+            const numbersArray = numbersInput.split(',').map(num => num.trim()).filter(num => num !== '');
+            if (numbersArray.length === 0) {
+                document.getElementById('result').innerText = 'Please enter some numbers.';
+                return;
+            }
+
+            const numbers = numbersArray.map(num => parseFloat(num));
+            if (numbers.some(isNaN)) {
+                document.getElementById('result').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            const sum = numbers.reduce((acc, num) => acc + num, 0);
+            const average = sum / numbers.length;
+
+            document.getElementById('result').innerText = `Average: ${average.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
